@@ -1,21 +1,6 @@
 jobs:
   - name: data_cleaning
     stages:
-      # - name: "clean-derivative-tables"
-      #   tasks:
-      #     - name: "sales"
-      #       params: {}
-      # - name: "housing-clean-base-tables"
-      #   tasks:
-      #     - name: "housing"
-      #       params: {}
-      # - name: "housing-train-test-split"
-      #   tasks:
-      #     - name: "train_test"
-      #       params:
-      #         target: median_house_value
-      #         test_size: 0.2
-
       - name: 'clean-base-tables'
         tasks:
           - name: 'sales'
