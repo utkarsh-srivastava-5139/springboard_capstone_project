@@ -1,0 +1,74 @@
+jobs:
+  - name: data_cleaning
+    stages:
+      # - name: "clean-derivative-tables"
+      #   tasks:
+      #     - name: "sales"
+      #       params: {}
+      # - name: "housing-clean-base-tables"
+      #   tasks:
+      #     - name: "housing"
+      #       params: {}
+      # - name: "housing-train-test-split"
+      #   tasks:
+      #     - name: "train_test"
+      #       params:
+      #         target: median_house_value
+      #         test_size: 0.2
+
+      - name: 'clean-base-tables'
+        tasks:
+          - name: 'sales'
+            params: {}
+          - name: 'social_media'
+            params: {}
+          - name: 'google_search'
+            params: {}
+          - name: 'product_manufacturer'
+            params: {}
+          - name: 'Theme_list'
+            params: {}
+          - name: 'Theme_product_list'
+            params: {}
+          - name: 'sales_with_theme_product'
+            params: {}
+
+      - name: 'clean-derivative-tables'
+        tasks:
+          - name: 'sales'
+            params: {}
+      
+      - name: 'train-test-split'
+        tasks:
+          - name: 'train-test'
+            params:
+              target: sales_units_value
+              test_size: 0.2
+
+  - name: feat_engg
+    stages:
+      - name: "springboard-feature-pipelines"
+        tasks:
+          - name: "transform_features"
+            params:
+              outliers:
+                method: iqr
+                tail: both
+                fold: 1.5
+                drop: False
+              sampling_fraction: 0.1
+
+  - name: model_gen
+    stages:
+      - name: "springboard-model-creation"
+        tasks:
+          - name: "train_model"
+            params:
+              sampling_fraction: 0.1
+
+  - name: model_eval
+    stages:
+      - name: "springboard-model-predict"
+        tasks:
+          - name: "score_model"
+            params: {}
